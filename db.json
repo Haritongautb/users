@@ -1,0 +1,34 @@
+{
+  "users_data": [
+    {
+      "name": "Khanh Hoang Tran",
+      "sex": "male",
+      "id": 1
+    },
+    {
+      "name": "Omar Taimetov",
+      "sex": "male",
+      "id": 2
+    },
+    {
+      "name": "Appa",
+      "sex": "male",
+      "id": 3
+    },
+    {
+      "name": "Andrii Makevnychuk",
+      "sex": "male",
+      "id": 4
+    },
+    {
+      "name": "Eugeny Foxe",
+      "sex": "male",
+      "id": "0"
+    },
+    {
+      "name": "Sergei Voblin",
+      "sex": "male",
+      "id": "5"
+    }
+  ]
+}
