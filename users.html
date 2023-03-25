@@ -4,39 +4,37 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./styles/style.css">
     <title>users</title>
 </head>
 <body>
 
     <div class="container">
 
-        <div class="top-block">
-            <button type="button" class="get-users" id="get-data">Get Users</button>
+        <div class="forms-block">
+            <!-- GET -->
+            <form class="form form-signin" id="form-signin" action="#">
+                <input class="form-input form-get" id="form-get-input" type="text" placeholder="write user's id" name="id" required>
+    
+                <button class="form-submit" id="form-submit-button" type="submit">Получить информацию о пользователе</button>
+            </form>
 
-            <form class="form-users" action="#">
-                <input type="text" class="input-form" placeholder="write name" name="name" id="name">
-                <input type="text" class="input-form" placeholder="write id" name="id" id="number-id">
-                <input type="text" class="input-form" placeholder="write sex" name="sex" id="sex">
-
-
-                <button type="submit" class="form-submit" id="form-submit">Submit</button>
+            <!-- Sign up - регистрация -->
+            <form class="form form-signin" id="form-signin" action="#">
+                <input class="form-input form-login" id="form-login-input" type="text" placeholder="write your login" required>
+                <input class="form-input form-password" id="form-password-input" type="text" placeholder="write your password" required>
+    
+                <button class="form-submit" id="form-submit-button" type="submit">Войти</button>
             </form>
 
 
-            <button class="btn" id="button-post">Отправить Егору</button>
         </div>
 
 
-        <div class="content">
-            <div class="users-list" id="users-list">
 
-
-            </div>
-        </div>
 
     </div>
     
-    <script src="./script.js"></script>
+    <script src="./scripts/bundle.js"></script>
 </body>
 </html>

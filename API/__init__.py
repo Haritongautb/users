@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import hashlib
 import sqlite3
 
 app = Flask(__name__)
 app.config['JSON_SORT_KEYS'] = False
+CORS(app)
 
 
 def hash_password(password):
@@ -24,7 +26,7 @@ def create_user():
     hashed_password = hash_password(password)
 
     # Insert the new user into the database
-    conn = sqlite3.connect('rest.db')
+    conn = sqlite3.connect('./API/rest.db')
     c = conn.cursor()
     c.execute('INSERT INTO user (name, password) VALUES (?, ?)', (name, hashed_password))
     conn.commit()
@@ -36,7 +38,7 @@ def create_user():
 @app.route('/user/<int:user_id>', methods=['GET'])
 def get_user(user_id):
     """Get a user by ID"""
-    conn = sqlite3.connect('rest.db')
+    conn = sqlite3.connect('./API/rest.db')
     c = conn.cursor()
     c.execute('SELECT name FROM user WHERE id=?', (user_id,))
     row = c.fetchone()
@@ -61,7 +63,7 @@ def update_user(user_id):
     hashed_password = hash_password(password) if password else None
 
     # Update the user in the database
-    conn = sqlite3.connect('rest.db')
+    conn = sqlite3.connect('./API/rest.db')
     c = conn.cursor()
     if name and hashed_password:
         c.execute('UPDATE user SET name=?, password=? WHERE id=?', (name, hashed_password, user_id))
@@ -78,7 +80,7 @@ def update_user(user_id):
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user(user_id):
     """Delete a user"""
-    conn = sqlite3.connect('rest.db')
+    conn = sqlite3.connect('./API/rest.db')
     c = conn.cursor()
     c.execute('DELETE FROM user WHERE id=?', (user_id,))
     conn.commit()
