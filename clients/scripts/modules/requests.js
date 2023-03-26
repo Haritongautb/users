@@ -45,7 +45,7 @@ function requests(state) {
     signINButton.addEventListener("click", event => {
         event.preventDefault();
 
-        if(checkOutState(state, "name") || checkOutState(state, "password")){
+        if(!state.name || !state.password){
             return;
         }
 
@@ -85,9 +85,14 @@ function requests(state) {
 
         getDataRequest(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
         .then(response => {
+            if(response.error){
+                console.log(response.error);
+                return;
+            }
             console.log(response);
             document.body.innerHTML += response.name;
         })
+
     })
 
     deleteUserButton.addEventListener("click", () => {  

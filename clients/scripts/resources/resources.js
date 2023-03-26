@@ -18,29 +18,22 @@ async function postRequest(url, data, header = getToken("token")) {
 }   
 
 async function getDataRequest(url, header){
-    try{
-        if(!getToken("token")){
-            alert("Вы не зарегстрированы или не авторизованы");
-            return;
-        }
 
-        const result = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                ...header
-            }
-        })
-
-        if(!result.ok){
-            throw new Error(result.statusText);
-        } else{
-            return await result.json();
-        }
-    } catch(error){
-        console.log(error);
+    if(!getToken("token")){
+        alert("Вы не зарегстрированы или не авторизованы");
         return;
     }
+
+    const result = await fetch(url, {
+        method: "GET",
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            ...header
+        }
+    })
+
+    return await result.json();
+
 }
 
 async function deleteUser(url, header){
