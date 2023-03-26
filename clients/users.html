@@ -8,47 +8,34 @@
     <title>users</title>
 </head>
 <body>
-
     <div class="container">
-
         <div class="forms-block">
-
             <form class="form form-signin" id="form-first" action="#">
                 <input class="button-default form-input form-get" id="form-get_id-input" type="text" placeholder="write user's id" name="id" required>
                 <!-- GET - получить инфу по id  -->
                 <button class="button-default form-submit" id="form-get_one_user-button" type="submit">Получить информацию о пользователе</button>
             </form>
-
-
             <form class="form form-signin" id="form-second" action="#">
                 <input class="form-input form-login" id="form-login-input" name="name" type="text" placeholder="write your login" required>
                 <input class="form-input form-password" id="form-password-input" name="password" type="text" placeholder="write your password" required>
                 <!-- POST- войти  -->
                 <button class="button-default form-submit" id="form-sign_up-button" name="signIN" type="submit">Войти</button>
-
                 <!-- POST- зарегаться -->
                 <button class="button-default form-submit" id="form-sign_in-button" name="signUP" type="submit">Регистрация</button>
-
             </form>
-
             <div class="rest-buttons-block">
                 <!-- GET - получить всю инфу-->
-                <button class="button-default" id="get-data-button" name="get_full_data" type="button">Получить всю информацию о пользователях</button>
-
+                <button class="button-default" id="get-data-button" type="button">Получить всю информацию о пользователях</button>
                 <!-- PUT- изменить данные по id -->
-                <button class="button-default" id="form-update-button" name="put" type="button">Поменять данные</button>
-
+                <button class="button-default" id="form-update-button" type="button">Поменять данные</button>
                 <!-- DELETE - удалить пользователя по id-->
-                <button class="button-default" id="form-delete-button" name="delete" type="button" >Удалить пользователя с базы данных</button>
+                <button class="button-default" id="form-delete-button" type="button" >Удалить пользователя с базы данных</button>
             </div>
+        </div>
+        <div id="content">
 
         </div>
-
-
-
-
     </div>
-    
     <script src="./build/bundle.js"></script>
 </body>
 </html>

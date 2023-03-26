@@ -35,9 +35,9 @@ function requests(state) {
         .then(response => {
             if(response.length > 0){
                 console.log(response);
-                document.body.innerHTML += response.map(item => item.name);
+                document.getElementById('content').innerHTML = response.map(item => item.name);
             } else {
-                document.body.innerHTML = "Нет пользователей";
+                document.getElementById('content').innerHTML = "Нет пользователей";
             }
         })
     })
