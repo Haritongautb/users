@@ -90,7 +90,7 @@ function requests(state) {
                 return;
             }
             console.log(response);
-            document.body.innerHTML += response.name;
+            document.getElementById('content').innerHTML = response.name;
         })
 
     })
