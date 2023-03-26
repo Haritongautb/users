@@ -11,7 +11,7 @@ def token_required(f):
         token = None
         if "token" in request.headers:
             token = request.headers["token"]
-        if not token or 'null' == token:
+        if not token or 'null' == token or '' == token:
             return {
                 "message": "Authentication Token is missing!",
                 "data": None,
