@@ -4,7 +4,6 @@ import getToken from "../verification/verification";
 import { deleteUser } from "../resources/resources";
 
 
-
 function requests(state) {
 
     const getData = document.getElementById("get-data-button"),
@@ -18,17 +17,29 @@ function requests(state) {
         getOneDataUser = document.getElementById("form-get_one_user-button"),
         deleteUserButton = document.getElementById("form-delete-button");
 
-    formLoginInput.addEventListener("change", event => {
-        state.name = event.target.value;
-    })
+    // formLoginInput.addEventListener("input", event => {
+    //     state.name = event.target.value;
+    // })
 
-    formPasswordInput.addEventListener("change", event => {
-        state.password = event.target.value;
-    })
+    // formPasswordInput.addEventListener("input", event => {
+    //     state.password = event.target.value;
+    // })
 
-    formIDInput.addEventListener("change", event => {
-        state.id = event.target.value;
-    })
+    // formIDInput.addEventListener("input", event => {
+    //     state.id = event.target.value;
+    // })
+
+    function bindInput(input){
+        input.addEventListener("input", event => {
+            state[event.target.name] = event.target.value;
+            console.log(state);
+        })
+    }
+
+    bindInput(formLoginInput);
+    bindInput(formPasswordInput);
+    bindInput(formIDInput);
+
 
     getData.addEventListener("click", () => {
         getDataRequest('http://127.0.0.1/api/user/', getToken("token"))
@@ -44,31 +55,34 @@ function requests(state) {
 
     signINButton.addEventListener("click", event => {
         event.preventDefault();
-
+        console.log(state);
         if(!state.name || !state.password){
             return;
         }
 
-        postRequest("http://127.0.0.1/api/login/", state, getToken("token"))
-        .then(response => {
-            if(response.error){
-                alert(response.error)
-                return;
-            }
-            alert("Вы успешно авторизованы")
-            localStorage.removeItem("token");
-            localStorage.setItem("token", response.hash);
-        })
-        .finally(() => {
-            Object.keys(state).forEach(key => delete state[key]);
-            console.log(state);
-        })
+        if(event && event.target){
+            postRequest("http://127.0.0.1/api/login/", state, getToken("token"))
+            .then(response => {
+                if(response.error){
+                    alert(response.error);
+                    return;
+                }
+                alert("Вы успешно авторизованы");
+                localStorage.removeItem("token");
+                localStorage.setItem("token", response.hash);
+            })
+            .finally(() => {
+                Object.keys(state).forEach(key => delete state[key]);
+                console.log(state);
+            })
+        }
     })
 
     signUPButton.addEventListener("click", event => {
         event.preventDefault();
 
         if(!state.name || !state.password){
+            alert("Вы успешно авторизованы");
             return;
         }
 
@@ -79,7 +93,7 @@ function requests(state) {
         event.preventDefault();
 
         if(!state.id){
-            alert("напишите id пользователя")
+            alert("напишите id пользователя");
             return;
         }
 
