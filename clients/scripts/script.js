@@ -9,8 +9,8 @@ import "./modules/done";
 window.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
-    const state = {};
+    let state = {};
 
-    requests();
+    requests(state);
 
 })

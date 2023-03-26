@@ -1,95 +1,23 @@
-from flask import Flask, jsonify, request
+from flask import Flask
 from flask_cors import CORS
-import hashlib
-import sqlite3
 
-app = Flask(__name__)
-app.config['JSON_SORT_KEYS'] = False
-CORS(app)
+from api import user, login
+from api.user import db
 
 
-def hash_password(password):
-    """Hashes the given password using SHA256"""
-    hash_object = hashlib.sha256(password.encode('utf-8'))
-    return hash_object.hexdigest()
+def create_api():
+    app_flask = Flask(__name__, instance_relative_config=True)
+    app_flask.config.from_mapping(
+        SECRET_KEY='dev',
+    )
+    app_flask.secret_key = 'dev'
+    app_flask.config['JSON_SORT_KEYS'] = False
+    CORS(app_flask)
+    app_flask.register_blueprint(user.bp)
+    app_flask.register_blueprint(login.bp)
+    db.init_app(app_flask)
+
+    return app_flask
 
 
-@app.route('/user', methods=['POST'])
-def create_user():
-    """Create a new user"""
-    name = request.json.get('name')
-    password = request.json.get('password')
-    if not name or not password:
-        return jsonify({'error': 'name and password are required'}), 400
-
-    # Hash the password before storing it
-    hashed_password = hash_password(password)
-
-    # Insert the new user into the database
-    conn = sqlite3.connect('./API/rest.db')
-    c = conn.cursor()
-    c.execute('INSERT INTO user (name, password) VALUES (?, ?)', (name, hashed_password))
-    conn.commit()
-    conn.close()
-
-    return jsonify({'message': f'User {name} created'}), 201
-
-
-@app.route('/user/<int:user_id>', methods=['GET'])
-def get_user(user_id):
-    """Get a user by ID"""
-    conn = sqlite3.connect('./API/rest.db')
-    c = conn.cursor()
-    c.execute('SELECT name FROM user WHERE id=?', (user_id,))
-    row = c.fetchone()
-    conn.close()
-
-    if row is None:
-        return jsonify({'error': f'User with ID {user_id} not found'}), 404
-
-    name = row[0]
-    return jsonify({'id': user_id, 'name': name}), 200
-
-
-@app.route('/user/<int:user_id>', methods=['PUT'])
-def update_user(user_id):
-    """Update a user"""
-    name = request.json.get('name')
-    password = request.json.get('password')
-    if not name and not password:
-        return jsonify({'error': 'name and/or password are required'}), 400
-
-    # Hash the password before storing it
-    hashed_password = hash_password(password) if password else None
-
-    # Update the user in the database
-    conn = sqlite3.connect('./API/rest.db')
-    c = conn.cursor()
-    if name and hashed_password:
-        c.execute('UPDATE user SET name=?, password=? WHERE id=?', (name, hashed_password, user_id))
-    elif name:
-        c.execute('UPDATE user SET name=? WHERE id=?', (name, user_id))
-    else:
-        c.execute('UPDATE user SET password=? WHERE id=?', (hashed_password, user_id))
-    conn.commit()
-    conn.close()
-
-    return jsonify({'message': f'User {user_id} updated'}), 200
-
-
-@app.route('/user/<int:user_id>', methods=['DELETE'])
-def delete_user(user_id):
-    """Delete a user"""
-    conn = sqlite3.connect('./API/rest.db')
-    c = conn.cursor()
-    c.execute('DELETE FROM user WHERE id=?', (user_id,))
-    conn.commit()
-    conn.close()
-
-    return jsonify({'message': f'User {user_id} deleted'}), 200
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-    
-
+app = create_api()

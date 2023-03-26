@@ -1,23 +1,24 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./scripts/modules/done.js":
-/*!*********************************!*\
-  !*** ./scripts/modules/done.js ***!
-  \*********************************/
+/***/ "./clients/scripts/modules/done.js":
+/*!*****************************************!*\
+  !*** ./clients/scripts/modules/done.js ***!
+  \*****************************************/
 /***/ (() => {
 
 "use strict";
 
 
-console.log("Hello world");
+console.log("Hello mom");
+console.log("руддщ ");
 
 /***/ }),
 
-/***/ "./scripts/modules/requests.js":
-/*!*************************************!*\
-  !*** ./scripts/modules/requests.js ***!
-  \*************************************/
+/***/ "./clients/scripts/modules/requests.js":
+/*!*********************************************!*\
+  !*** ./clients/scripts/modules/requests.js ***!
+  \*********************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -25,7 +26,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-function requests() {}
+function requests() {
+  console.log("Hello requests");
+}
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (requests);
 
 /***/ }),
@@ -1315,14 +1318,14 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
-/*!***************************!*\
-  !*** ./scripts/script.js ***!
-  \***************************/
+/*!***********************************!*\
+  !*** ./clients/scripts/script.js ***!
+  \***********************************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! nodelist-foreach-polyfill */ "./node_modules/nodelist-foreach-polyfill/index.js");
 /* harmony import */ var nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(nodelist_foreach_polyfill__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _modules_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/requests */ "./scripts/modules/requests.js");
-/* harmony import */ var _modules_done__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/done */ "./scripts/modules/done.js");
+/* harmony import */ var _modules_requests__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/requests */ "./clients/scripts/modules/requests.js");
+/* harmony import */ var _modules_done__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/done */ "./clients/scripts/modules/done.js");
 /* harmony import */ var _modules_done__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_modules_done__WEBPACK_IMPORTED_MODULE_2__);
 (__webpack_require__(/*! es6-promise */ "./node_modules/es6-promise/dist/es6-promise.js").polyfill)();
 
@@ -1333,6 +1336,7 @@ window.addEventListener("DOMContentLoaded", function () {
 
   var state = {};
   (0,_modules_requests__WEBPACK_IMPORTED_MODULE_1__["default"])();
+  console.log("Hello this is script");
 });
 })();
 

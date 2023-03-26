@@ -403,10 +403,11 @@ body{
 .forms-block{
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
     gap: 40px;
 
-    padding-top: 200px;
+    padding: 200px 0;
 }
 
 .form{
@@ -440,7 +441,7 @@ body{
     border: 3px solid #9b59b6;
 }
 
-.form-submit{
+.button-default{
     padding: 15px 60px;
     font-size: 20px;
     font-weight: 700;
@@ -450,4 +451,10 @@ body{
 
     background-color: #70a1ff;
     color: #3742fa;
+}
+
+.rest-buttons-block{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
 }
