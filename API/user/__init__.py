@@ -64,5 +64,10 @@ def update_user(user_id):
 @bp.route('/<int:user_id>', methods=['DELETE'])
 @token_required
 def delete_user(user_id):
+    row = user.findUserById(user_id)
+
+    if row is None:
+        return jsonify({'error': f'User with ID {user_id} not found'}), 404
+
     user.deleteUser(user_id)
     return jsonify({'message': f'User {user_id} deleted'}), 200
