@@ -51,6 +51,11 @@ def update_user(user_id):
     if not name and not password:
         return jsonify({'error': 'name and/or password are required'}), 400
 
+    row = user.findUserById(user_id)
+
+    if row is None:
+        return jsonify({'error': f'User with ID {user_id} not found'}), 404
+
     user.updateUser(user_id, name, password)
 
     return jsonify({'message': f'User {user_id} updated'}), 200
