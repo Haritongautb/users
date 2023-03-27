@@ -3,7 +3,7 @@ require("es6-promise").polyfill();
 import "nodelist-foreach-polyfill";
 
 import requests from "./modules/requests";
-import "./modules/done";
+import "./modules/cleaner";
 
 
 window.addEventListener("DOMContentLoaded", () => {

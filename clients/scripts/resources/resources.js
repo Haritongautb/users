@@ -62,8 +62,29 @@ async function deleteUser(url, header){
     }
 }
 
+
+async function changeData(url, data, header){
+    if(!getToken("token")){
+        alert("Вы не зарегистрированы или не авторизованы");
+        return;
+    }
+
+    const result = await fetch(url, {
+        method: "PUT",
+        body: JSON.stringify(data),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            ...header
+        }
+    })
+
+    return await result.json();
+}
+
 export {getDataRequest};
 export {postRequest};
 
 export {deleteUser};
+
+export {changeData};
 

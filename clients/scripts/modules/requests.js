@@ -2,6 +2,8 @@ import { getDataRequest } from "../resources/resources";
 import {postRequest} from "../resources/resources"
 import getToken from "../verification/verification";
 import { deleteUser } from "../resources/resources";
+import { changeData } from "../resources/resources";
+import { clean} from "./cleaner";
 
 
 function requests(state) {
@@ -10,24 +12,13 @@ function requests(state) {
         formLoginInput = document.getElementById("form-login-input"),
         formPasswordInput = document.getElementById("form-password-input"),
         // Войти
-        signINButton = document.getElementById("form-sign_up-button"),
+        signINButton = document.getElementById("form-sign_in-button"),
         // Регистрация
-        signUPButton = document.getElementById("form-sign_in-button"),
+        signUPButton = document.getElementById("form-sign_up-button"),
         formIDInput = document.getElementById("form-get_id-input"),
         getOneDataUser = document.getElementById("form-get_one_user-button"),
-        deleteUserButton = document.getElementById("form-delete-button");
-
-    // formLoginInput.addEventListener("input", event => {
-    //     state.name = event.target.value;
-    // })
-
-    // formPasswordInput.addEventListener("input", event => {
-    //     state.password = event.target.value;
-    // })
-
-    // formIDInput.addEventListener("input", event => {
-    //     state.id = event.target.value;
-    // })
+        deleteUserButton = document.getElementById("form-delete-button"),
+        changeUserDataButton = document.getElementById("form-update-button");
 
     function bindInput(input){
         input.addEventListener("input", event => {
@@ -41,22 +32,26 @@ function requests(state) {
     bindInput(formIDInput);
 
 
-    getData.addEventListener("click", () => {
-        getDataRequest('http://127.0.0.1/api/user/', getToken("token"))
-        .then(response => {
-            if(response.length > 0){
-                console.log(response);
-                document.getElementById('content').innerHTML = response.map(item => item.name);
-            } else {
-                document.getElementById('content').innerHTML = "Нет пользователей";
-            }
-        })
+    getData.addEventListener("click", event => {
+
+        if(event && event.target){
+            getDataRequest('http://127.0.0.1/api/user/', getToken("token"))
+            .then(response => {
+                if(response.length > 0){
+                    console.log(response);
+                    document.getElementById('content').innerHTML = response.map(item => item.name);
+                } else {
+                    document.getElementById('content').innerHTML = "Нет пользователей";
+                }
+            })
+        }
     })
 
     signINButton.addEventListener("click", event => {
         event.preventDefault();
         console.log(state);
         if(!state.name || !state.password){
+            alert("Вы не зарегистрированы")
             return;
         }
 
@@ -72,7 +67,7 @@ function requests(state) {
                 localStorage.setItem("token", response.hash);
             })
             .finally(() => {
-                Object.keys(state).forEach(key => delete state[key]);
+                clean(state);
                 console.log(state);
             })
         }
@@ -86,7 +81,9 @@ function requests(state) {
             return;
         }
 
-        postRequest("http://127.0.0.1/api/user/", state, getToken("token"))
+        if(event && event.target){
+            postRequest("http://127.0.0.1/api/user/", state, getToken("token"))
+        }
     })
 
     getOneDataUser.addEventListener("click", event => {
@@ -97,27 +94,51 @@ function requests(state) {
             return;
         }
 
-        getDataRequest(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
-        .then(response => {
-            if(response.error){
-                console.log(response.error);
-                return;
-            }
-            console.log(response);
-            document.getElementById('content').innerHTML = response.name;
-        })
+        if(event && event.target){
+            getDataRequest(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
+            .then(response => {
+                if(response.error){
+                    console.log(response.error);
+                    return;
+                }
+                console.log(response);
+                document.getElementById('content').innerHTML = response.name;
+            })
+        }
 
     })
 
-    deleteUserButton.addEventListener("click", () => {  
+    deleteUserButton.addEventListener("click", event => {  
         if(!state.id){
             alert("напишите id пользователя")
             return;
         }
 
-        deleteUser(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
-        .then(response => console.log(response))
+        if(event && event.target){
+            deleteUser(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
+            .then(response => {
+                console.log(response)
+                clean(state);
+                console.log(state);
+            })
+        }
     })
+
+    changeUserDataButton.addEventListener("click", event => {
+        if(!state.id || !state.name || !state.password){
+            alert("Нужно заполнить графы id, имя и пароль")
+            return;
+        }
+
+        if(event && event.target){
+            changeData(`http://127.0.0.1/api/user/${state.id}`, {name: state.name, password: state.password}, getToken("token"))
+            .then(response => {
+                console.log(response);
+            })
+        }
+
+    })
+
 }
 
 export default requests;
