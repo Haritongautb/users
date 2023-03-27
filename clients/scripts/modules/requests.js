@@ -98,7 +98,7 @@ function requests(state) {
             getDataRequest(`http://127.0.0.1/api/user/${state.id}`, getToken("token"))
             .then(response => {
                 if(response.error){
-                    console.log(response.error);
+                    alert(response.error);
                     return;
                 }
                 console.log(response);

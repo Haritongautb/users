@@ -37,7 +37,6 @@ async function getDataRequest(url, header){
 }
 
 async function deleteUser(url, header){
-    try{
         if(!getToken("token")){
             alert("Вы не зарегстрированы или не авторизованы");
             return;
@@ -52,14 +51,10 @@ async function deleteUser(url, header){
         })
 
         if(!result.ok){
-            throw new Error(result.statusText);
-        } else{
-            return await result.json();
-        }
-    } catch(error){
-        console.log(error);
-        return;
-    }
+            console.log(result.statusText);
+        } 
+           
+        return await result.json();
 }
 
 
