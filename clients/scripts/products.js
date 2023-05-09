@@ -60,6 +60,9 @@ window.addEventListener("DOMContentLoaded", () => {
 
 
         if(event && event.target){
+            for(let key of formData.values()){
+                console.log(key);
+            }
             event.target.disabled = true;
             uploadFile(`${window.env.host}/api/products/`, formData, getToken("token"))
             .then(response => {

@@ -100,3 +100,4 @@ def delete_product(product_id):
 
     product.deleteProduct(product_id)
     return jsonify({'message': f'Product {product_id} deleted'}), 200
+
