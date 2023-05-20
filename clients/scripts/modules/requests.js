@@ -29,7 +29,7 @@ function requests() {
         event.preventDefault();
         
         if (!state.name || !state.password) {
-            alert("Нужно заполнить графы id, имя и пароль")
+            alert("You need to fill in the fields id, name and password")
             return;
         }
 

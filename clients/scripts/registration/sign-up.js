@@ -39,7 +39,7 @@ window.addEventListener("DOMContentLoaded", () => {
                     Message.addMessage("success");
                     clean(state);
                     cleanInputs("formInputs");
-
+                    localStorage.setItem("amount", 0);
                     // Переход на другую страницу, не обновляя текущую страницу
                     location.href = 'log-in.html';
                     setTimeout(() => Message.deleteMessage(), 5000);

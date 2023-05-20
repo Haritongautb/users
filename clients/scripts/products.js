@@ -46,7 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
         event.preventDefault();
 
         if((!productNameInput.value || !productDescriptionInput.value || !productPriceInput.value) || searchInput.value){
-            alert("Заполните поля name, description, price");
+            alert("Fill in the fields name, description, price");
             return;
         }
 

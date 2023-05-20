@@ -1,7 +1,8 @@
-
+import { currentUserInit } from "./modules/currentUserInit";
 window.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
+    currentUserInit("pay");
     const payButton = document.getElementById("pay");
     const amount = JSON.parse(localStorage.getItem("amount"));
     const name = localStorage.getItem("user_name");

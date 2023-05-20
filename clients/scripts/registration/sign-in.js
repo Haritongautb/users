@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
         function sendRequest(event){
             event.preventDefault();
             if(!state.name || !state.password){
-                alert("Заполните поля name и password");
+                alert("Fill in the name and password fields");
                 return;
             }
     
