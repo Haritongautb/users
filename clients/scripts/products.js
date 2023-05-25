@@ -18,10 +18,11 @@ window.addEventListener("DOMContentLoaded", () => {
         productImageInput = document.getElementById("product-img"),
 
         createButton = document.getElementById("create-new-item"),
-        payButton = document.getElementById("pay")
+        payButton = document.getElementById("pay"),
         findProductButton = document.getElementById("get-one"),
 
-        productsContainer = document.getElementById("products-hero");
+        productsContainer = document.getElementById("products-hero"),
+        amount = document.getElementById("amount");
 
     const state = {
         products: [],
@@ -33,11 +34,13 @@ window.addEventListener("DOMContentLoaded", () => {
         get: "GET"
     }
 
+    console.log(state.amount);
+
+    amount.textContent = `${state.amount} zł`;
     currentUserInit("products");
     cleanProducts();
     createProducts();
 
-    bindInput(state.newProductChanges, searchInput);
     bindInput(state.newProductChanges, productNameInput);
     bindInput(state.newProductChanges, productDescriptionInput);
     bindInput(state.newProductChanges, productPriceInput);
@@ -45,7 +48,7 @@ window.addEventListener("DOMContentLoaded", () => {
     function createItem(event){
         event.preventDefault();
 
-        if((!productNameInput.value || !productDescriptionInput.value || !productPriceInput.value) || searchInput.value){
+        if((!productNameInput.value || !productDescriptionInput.value || !productPriceInput.value)){
             alert("Fill in the fields name, description, price");
             return;
         }
@@ -66,7 +69,7 @@ window.addEventListener("DOMContentLoaded", () => {
             uploadFile(`${window.env.host}/api/products/`, formData, getToken("token"))
             .then(response => {
                 console.log(response);
-                cleanInputs("productInputs");
+                // cleanInputs("productInputs");
                 createProducts();
                 event.target.disabled = false;
             })
@@ -96,6 +99,8 @@ window.addEventListener("DOMContentLoaded", () => {
             } 
         });
     }
+
+
 
     function bindAddButton(selector) {
         const buttons = document.querySelectorAll(selector);
@@ -131,9 +136,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     createButton.addEventListener("click", createItem.bind(this));
 
-    payButton.addEventListener("click", payLoad.bind(this))
-
-    findProductButton.addEventListener("click", findProduct.bind(this));
+    payButton.addEventListener("click", payLoad.bind(this));
 
 })
 
