@@ -11,15 +11,13 @@ import getToken from "./verification/verification";
 window.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
-    const searchInput  = document.getElementById("search-input"),
-        productNameInput = document.getElementById("product-name"),
+    const productNameInput = document.getElementById("product-name"),
         productDescriptionInput = document.getElementById("product-description"),
         productPriceInput = document.getElementById("product-price"),
         productImageInput = document.getElementById("product-img"),
 
         createButton = document.getElementById("create-new-item"),
         payButton = document.getElementById("pay"),
-        findProductButton = document.getElementById("get-one"),
 
         productsContainer = document.getElementById("products-hero"),
         amount = document.getElementById("amount");
@@ -40,6 +38,7 @@ window.addEventListener("DOMContentLoaded", () => {
     currentUserInit("products");
     cleanProducts();
     createProducts();
+
 
     bindInput(state.newProductChanges, productNameInput);
     bindInput(state.newProductChanges, productDescriptionInput);
@@ -69,7 +68,7 @@ window.addEventListener("DOMContentLoaded", () => {
             uploadFile(`${window.env.host}/api/products/`, formData, getToken("token"))
             .then(response => {
                 console.log(response);
-                // cleanInputs("productInputs");
+                cleanInputs("productInputs");
                 createProducts();
                 event.target.disabled = false;
             })
@@ -82,6 +81,7 @@ window.addEventListener("DOMContentLoaded", () => {
                 }
             })
         }
+
     }
 
     function createProducts() {
