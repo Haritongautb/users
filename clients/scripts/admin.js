@@ -40,7 +40,6 @@ window.addEventListener("DOMContentLoaded", () => {
     bindInput(state, inputProducTitlte);
     bindInput(state, inputUserID);
 
-
     function checkAdmin() {
         const isAdmin = window.env.name === localStorage.getItem("user_name");
         const path = location.pathname.indexOf("admin.html");

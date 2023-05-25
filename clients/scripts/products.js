@@ -18,7 +18,8 @@ window.addEventListener("DOMContentLoaded", () => {
         productImageInput = document.getElementById("product-img"),
 
         createButton = document.getElementById("create-new-item"),
-        payButton = document.getElementById("pay"),
+        payButton = document.getElementById("pay")
+        findProductButton = document.getElementById("get-one"),
 
         productsContainer = document.getElementById("products-hero");
 
@@ -132,9 +133,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     payButton.addEventListener("click", payLoad.bind(this))
 
-
-
-
+    findProductButton.addEventListener("click", findProduct.bind(this));
 
 })
 
