@@ -8,6 +8,7 @@ import { sortUsersID } from "./modules/render";
 window.addEventListener("DOMContentLoaded", () => {
     "use strict";
 
+    checkAdmin();
     const inputProductID = document.getElementById("input-id"),
         inputProductName = document.getElementById("input-name"),
         inputProductPrice = document.getElementById("input-price"),
@@ -38,6 +39,15 @@ window.addEventListener("DOMContentLoaded", () => {
     bindInput(state, inputProductPrice);
     bindInput(state, inputProducTitlte);
     bindInput(state, inputUserID);
+
+
+    function checkAdmin() {
+        const isAdmin = window.env.name === localStorage.getItem("user_name");
+        const path = location.pathname.indexOf("admin.html");
+        if((+path > -1) && !isAdmin){
+            location.href = history.back();
+        }
+    }
 
     function getAllProducts(event) {
         if(event && event.target) {

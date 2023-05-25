@@ -22,7 +22,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
         productsContainer = document.getElementById("products-hero");
 
-
     const state = {
         products: [],
         newProductChanges: {},
